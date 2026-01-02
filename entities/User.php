@@ -33,7 +33,7 @@ public function setId(?int $id): void {
     $this->id = $id;
 }
 
-// Name
+
 public function getName(): string {
     return $this->name;
 }
@@ -42,7 +42,7 @@ public function setName(string $name): void {
     $this->name = $name;
 }
 
-// Email
+
 public function getEmail(): string {
     return $this->email;
 }
