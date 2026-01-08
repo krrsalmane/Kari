@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . '/../../services/AuthService.php';
 require_once __DIR__ . '/../../services/BookingService.php';
-require_once __DIR__ . '/../../utils/PDFGenerator.php';
 
 $authService = new AuthService();
 $bookingService = new BookingService();
@@ -11,13 +10,10 @@ if (!$authService->isLoggedIn()) {
     exit;
 }
 
+$user = $authService->getCurrentUser();
 $bookingId = intval($_GET['id'] ?? 0);
-$data = $bookingService->getBookingDetails($bookingId);
 
-if (!$data) {
-    header('Location: list.php');
-    exit;
-}
+$result = $bookingService->cancelBooking($bookingId, $user->getId());
 
-// Generate and download PDF
-PDFGenerator::generateReceipt($data);
+header('Location: list.php');
+exit;
